@@ -1,0 +1,12 @@
+node_modules
+/.svelte-kit
+/build
+/functions
+../.idea/vcs.xml
+.yalc/*
+# Local Netlify folder
+.netlify
+static/questions.json
+.DS_Store
+yalc.lock
+.idea

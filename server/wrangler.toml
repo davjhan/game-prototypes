@@ -1,0 +1,24 @@
+name = "server"
+type = "javascript"
+zone_id = ""
+account_id = ""
+workers_dev = true
+compatibility_date = "2022-02-18"
+
+
+[build.upload]
+format = "modules"
+dir = "./dist/esm"
+main = "./index.js"
+
+[[build.upload.rules]]
+type = "ESModule"
+globs = ["**/*.js"]
+
+[build]
+command = "npm run build"
+
+[durable_objects]
+bindings = [
+    { name = "GAME_ROOM", class_name = "GameRoom" } # Binding to our DurableObjectExample class
+]
