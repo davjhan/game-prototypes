@@ -4,7 +4,7 @@
     "module": "commonjs",
     "target": "esnext",
     "lib": [
-      "esnext",
+      "esnext"
     ],
     "alwaysStrict": true,
     "strict": false,
@@ -12,9 +12,10 @@
     "moduleResolution": "node",
     "sourceMap": true,
     "esModuleInterop": true,
+    "skipLibCheck": true,
     "types": [
-      "@cloudflare/workers-types",
-      "@types/service-worker-mock"
+      "node",
+      "websocket"
     ]
   },
   "include": [
