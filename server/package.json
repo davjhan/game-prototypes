@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Cloudflare worker TypeScript template",
   "main": "dist/index.js",
+  "files": [
+    "../common"
+  ],
   "scripts": {
     "build": "tsup src --format esm --legacy-output",
     "start": "esno src/index.ts --watch",
@@ -22,8 +25,10 @@
     "@types/ws": "^8.2.3",
     "koa": "^2.13.4",
     "koa-websocket": "^6.0.0",
+    "nanoid": "^3.3.1",
     "nodemon": "^2.0.15",
     "tsup": "^5.11.13",
-    "typescript": "^4.3.2"
+    "typescript": "^4.5.5",
+    "url-pattern": "^1.0.3"
   }
 }

@@ -22,7 +22,7 @@ const config = {
             resolve: {
                 alias: {
                     $static: path.resolve('/static'),
-                    $views: path.resolve('src/lib/gameRoom')
+                    $bagger: path.resolve('/src/bagger')
                 }
             },
             server: {

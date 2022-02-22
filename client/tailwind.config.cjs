@@ -3,5 +3,10 @@ module.exports = {
     content: ['./src/**/*.{svelte,js,ts,jsx,tsx,html}',],
     theme: {
         ...theme,
+        extend:{
+            borderWidth:{
+                3: '3px'
+            }
+        }
     }
 }

@@ -1,17 +1,23 @@
 import Router from '@koa/router'
-import Koa, { Context, Middleware } from 'koa'
+import Koa from 'koa'
 import websockify from 'koa-websocket'
-import { enterGame } from './game'
+import UrlPattern from 'url-pattern'
+import { newClimberGame } from './ClimberGame'
 
 const app = websockify(new Koa())
 const router = new Router()
 
+const game = newClimberGame()
+
 app.ws.use((ctx) => {
-	enterGame(ctx)
+	const route = new UrlPattern('/game/:roomId')
+	const routeMatch = route.match(ctx.url)
+	if(routeMatch)	game.connect(ctx, routeMatch)
+	else ctx.websocket.close(1000)
 })
 
 app.use(router.routes())
 	.use(router.allowedMethods)
 
-app.listen(3000)
-console.log('✨ Server listening on :3000')
+app.listen(8080)
+console.log('✨ Server listening on :8080')
