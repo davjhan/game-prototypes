@@ -5,7 +5,7 @@
     export let clazz = ''
 </script>
 
-<div class='relative'>
+<div class='relative animate-wiggle'>
     {#each model.layout as layoutRows, r}
         {#each layoutRows as layoutCell, c}
             {#if layoutCell}

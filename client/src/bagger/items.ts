@@ -13,14 +13,14 @@ export class Item implements Placeable {
 	readonly layout: number[][]
 
 	constructor(
+		public col: number,
 		public row: number,
-		public col: number
 	) {
 		this.id = nanoid()
 	}
 
-	toPlacement(isValid:boolean = true):Placement{
-		return newPlacement({item:this, isValid, row:this.row, col:this.col})
+	toPlacement(from:string, to:string): Placement {
+		return new Placement({ item: this, row: this.row, col: this.col, from, to })
 	}
 }
 
@@ -40,30 +40,26 @@ export class Zag extends Item {
 	readonly color = '#bef264'
 }
 
-export interface ItemDragEvent extends Placeable {
-	item: Item
-	x: number
-	y: number
-}
-
-export interface Placement extends Placeable {
+export class Placement implements Placeable {
 	item: Item
 	row: number
 	col: number
-	isValid: boolean
-}
+	layout: number[][]
+	from:string
+	to:string
 
-export function newPlacement({ item, row, col, isValid = false }: {
-	item: Item,
-	row: number,
-	col: number,
-	isValid: boolean
-}): Placement {
-	return {
-		item,
-		row,
-		col,
-		layout: item.layout,
-		isValid,
+	constructor({ item, row, col, from, to}: {
+		item: Item
+		row: number
+		col: number
+		from:string
+		to:string
+	}) {
+		this.item = item
+		this.row = row
+		this.col = col
+		this.layout = item.layout
+		this.from = from
+		this.to = to
 	}
 }

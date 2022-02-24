@@ -8,7 +8,7 @@ export class Size {
 	item: number
 	halfItem: number
 
-	constructor(canvasWidth: number, readonly rows:number, readonly cols:number) {
+	constructor(canvasWidth: number, readonly cols:number, readonly rows:number,) {
 		this.boundsW = canvasWidth
 		this.boundsH = canvasWidth * (rows / cols)
 		this.item = canvasWidth / cols
@@ -17,17 +17,11 @@ export class Size {
 	}
 }
 
-export class Cabinet {
-	grid: number[][]
-
-	constructor(public id:string, public items: Item[], public size:Size) {
-		this.grid = this.layoutItems(items)
-	}
-
+export module LayoutGrid {
 	/** Updates the grid occupancy.
 	 * @throws InvalidGridError if items are out of bounds. */
-	layoutItems( items: Placeable[]):number[][]{
-		const grid = new Array(this.size.rows).fill(0).map(() => new Array(this.size.cols).fill(0))
+	export function layoutItems( items: Placeable[], rows:number, cols:number):number[][]{
+		const grid = new Array(rows).fill(0).map(() => new Array(cols).fill(0))
 		try{
 			items.forEach(item => {
 				/* For each item, mark the space it takes up */
@@ -37,7 +31,7 @@ export class Cabinet {
 
 							const row = item.row + r
 							const col = item.col + c
-							if(row < 0 || row > this.size.rows-1 || col < 0 || col > this.size.cols-1){
+							if(row < 0 || row > rows-1 || col < 0 || col > cols-1){
 								/* Index out of bounds. */
 
 								throw new InvalidGridError()

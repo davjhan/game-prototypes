@@ -18,14 +18,16 @@
         To have warnings/errors of the Svelte compiler at the correct position,
         enable source maps by default.
         */
-    "sourceMap": true,
+    "sourceMap": false,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
     "allowJs": true,
     "checkJs": true,
-    "types": ["@neodrag/svelte/globals"],
+    "types": [
+      "@neodrag/svelte/globals"
+    ],
     "paths": {
       "$bagger/*": [
         "src/bagger/*"

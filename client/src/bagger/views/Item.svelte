@@ -1,30 +1,31 @@
 <script lang="ts">
+	import { EventBus } from '$bagger/eventbus'
+	import { Item } from '$bagger/items'
 	import { draggable } from '@neodrag/svelte'
 	import { getContext } from 'svelte'
 	import DebugItemView from './DebugItemView.svelte'
 
-	export let item, size
-    $: x = item.col * size.item + 0.001
-    $: y = item.row * size.item + 0.001
-
-    const onItemDrag = getContext('onItemDrag')
-    const onItemDrop = getContext('onItemDrop')
+	export let data:{item:Item, parent:string}, size
+    $: x = data.item.col * size.item + 0.001
+    $: y = data.item.row * size.item + 0.001
+    const events = getContext<EventBus>('events')
 
     function onDrag(e) {
         x = e.offsetX
         y = e.offsetY
 
-	    onItemDrag({
-            x:e.domRect.x ,
-            y:e.domRect.y ,
-            item
-        })
+	    events.dispatch('onDrag',{
+		    x:e.domRect.x,
+		    y:e.domRect.y,
+		    item:data.item,
+            from:data.parent
+	    } as DragEvent)
     }
 
     function onDragEnd(e) {
-	    if (!onItemDrop()){
-			item.col = item.col
-            item.row = item.row
+		const result = events.dispatch('onDrop')
+	    if (!result){
+		    data = data
         }
     }
 
@@ -39,5 +40,5 @@
          onDragEnd,
      }}
 >
-    <DebugItemView model={item} {size} />
+    <DebugItemView model={data.item} {size} />
 </div>
