@@ -29,7 +29,11 @@ export class Dot extends Item {
 	readonly layout = [[1]]
 	readonly color = '#60a5fa'
 }
-
+export class Line extends Item {
+	readonly type = 'line'
+	readonly layout = [[1],[1]]
+	readonly color = '#f9a8d4'
+}
 export class Zag extends Item {
 	readonly type = 'dot'
 	readonly layout = [

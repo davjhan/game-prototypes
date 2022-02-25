@@ -5,14 +5,14 @@
     export let clazz = ''
 </script>
 
-<div class='relative animate-wiggle'>
+<div class='relative '>
     {#each model.layout as layoutRows, r}
         {#each layoutRows as layoutCell, c}
             {#if layoutCell}
                 <div class='absolute rounded {clazz}'
-                     style='width:{size.item}px; height:{size.item}px;
+                     style='width:{size.cell}px; height:{size.cell}px;
                      background-color:{color};
-                            transform:translate({c*size.item}px, {r*size.item}px)'
+                            transform:translate({c*size.cell}px, {r*size.cell}px)'
                 ></div>
             {/if}
         {/each}

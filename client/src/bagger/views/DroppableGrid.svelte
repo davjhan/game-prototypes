@@ -1,6 +1,7 @@
 <script lang='ts'>
 	import { LayoutGrid, Size } from '$bagger/cabinet'
 	import { EventBus } from '$bagger/eventbus'
+	import { render } from '$bagger/itemRenderer'
 	import { DragEvent, Game, GameDataModel, GameViewModel } from '$bagger/main'
 	import Item from '$bagger/views/Item.svelte'
 	import { getContext, onDestroy } from 'svelte'
@@ -19,8 +20,8 @@
 		const x = e.x - bounds.x
 		const y = e.y - bounds.y
 		const placeable: Placeable = {
-			row: Math.floor((y + size.halfItem) / size.item),
-			col: Math.floor((x + size.halfItem) / size.item),
+			row: Math.floor((y + size.halfCell) / size.cell),
+			col: Math.floor((x + size.halfCell) / size.cell),
 
 			layout: e.item.layout
 		}
@@ -36,12 +37,13 @@
 				to: data.id
 			})
 		}
-		console.log(`PLE`, placement)
 		if (placeable.row < 0 ||
-			placeable.row > size.rows - 1 ||
+			placeable.row > size.rows ||
 			placeable.col < 0 ||
-			placeable.col >
-			size.cols - 1) {
+			placeable.col > size.cols
+        ) {
+
+			console.log(`col`, size.cols - 1)
             /* Out of bounds */
 			placement = undefined
 		} else {
@@ -52,7 +54,6 @@
 				from: e.from,
 				to: data.id
 			})
-			console.log(`placemenrTT`, placement)
 			if (placement != newPlacement) placement = newPlacement
 		}
 	})
@@ -77,29 +78,37 @@
 		unsubscribeDragEvent()
 		unsubscribeDropEvent()
 	})
+    let placementView
+    $: if(placement) placementView = render(placement,size, isValid ? `fill-shade-primary` :
+                                                            `fill-shade-error stroke-ink-error` )
 
 	const gridCss = `
-	    width:${ size.boundsW }px;
-	    height:${ size.boundsH }px;
+	    width:${ size.boundsW + 4 }px;
+	    height:${ size.boundsH + 4}px;
         background-image: radial-gradient(circle at calc(100% - 2px) calc(100% - 2px), #d1d5db 2px, transparent 0);
-        background-size: ${ size.item }px ${ size.item }px;
+        background-size: ${ size.cell }px ${ size.cell }px;
         background-position: 2px 2px;
         `
 </script>
 
-<div class='outlined ' style={gridCss} bind:this={root}>
+<div class='outlined border-ink-secondary' style={gridCss} bind:this={root}>
     {#each data.items as item (item.id)}
         <Item data={{item, parent:data.id}} size={size} />
     {/each}
-    <div class='overflow-hidden flex-grow pointer-events-none'>
+    <div class='overflow-hidden flex-grow pointer-events-none overflow-visible'>
 
         {#if shadow}
             <ItemHighlight model={shadow} size={size}
-                           shadow={true} />
+                           />
         {/if}
         {#key placement}
         {#if placement}
-            <ItemHighlight model={{...placement, isValid}} size={size} />
+            <div class='absolute '
+                 style='width:{size.cell}px; height:{size.cell}px; transform: translate({placement.col * size.cell}px, {placement.row
+                  * size.cell}px);'>
+                {@html placementView}
+            </div>
+
         {/if}
         {/key}
     </div>

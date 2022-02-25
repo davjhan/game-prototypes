@@ -1,13 +1,14 @@
 <script lang="ts">
 	import { EventBus } from '$bagger/eventbus'
+	import { render } from '$bagger/itemRenderer'
 	import { Item } from '$bagger/items'
 	import { draggable } from '@neodrag/svelte'
 	import { getContext } from 'svelte'
 	import DebugItemView from './DebugItemView.svelte'
 
 	export let data:{item:Item, parent:string}, size
-    $: x = data.item.col * size.item + 0.001
-    $: y = data.item.row * size.item + 0.001
+    $: x = data.item.col * size.cell + 0.001
+    $: y = data.item.row * size.cell + 0.001
     const events = getContext<EventBus>('events')
 
     function onDrag(e) {
@@ -29,10 +30,12 @@
         }
     }
 
+	const background = render(data.item, size, 'fill-white')
+
 </script>
 
 <div class=' absolute rel select-none cursor-pointer '
-     style='width:{size.item}px; height:{size.item}px;'
+     style='width:{size.cell}px; height:{size.cell}px;'
      use:draggable={{
          position: { x, y },
          defaultClassDragging: 'z-10',
@@ -40,5 +43,5 @@
          onDragEnd,
      }}
 >
-    <DebugItemView model={data.item} {size} />
+        {@html background}
 </div>

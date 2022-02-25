@@ -5,14 +5,14 @@ const canvasWidth = 340
 export class Size {
 	boundsW: number
 	boundsH: number
-	item: number
-	halfItem: number
+	cell: number
+	halfCell: number
 
 	constructor(canvasWidth: number, readonly cols:number, readonly rows:number,) {
 		this.boundsW = canvasWidth
 		this.boundsH = canvasWidth * (rows / cols)
-		this.item = canvasWidth / cols
-		this.halfItem = this.item / 2
+		this.cell = canvasWidth / cols
+		this.halfCell = this.cell / 2
 
 	}
 }
@@ -31,7 +31,7 @@ export module LayoutGrid {
 
 							const row = item.row + r
 							const col = item.col + c
-							if(row < 0 || row > rows-1 || col < 0 || col > cols-1){
+							if(row < 0 || row > rows || col < 0 || col > cols){
 								/* Index out of bounds. */
 
 								throw new InvalidGridError()

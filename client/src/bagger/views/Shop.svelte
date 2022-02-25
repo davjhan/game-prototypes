@@ -12,8 +12,4 @@
 	}
 </script>
 <svelte:options accessors/>
-<div class='card outlined p-1 border-ink border-b-3'>
-    <span class='card-header -m-1 mb-1 label'>Shop</span>
-    <Cabinet data={{items:$game.data.shop, id:'shop'}} size={$game.view.shopSize}
-             onTransact={onTransact}/>
-</div>
+<span class='label'>Shop</span>

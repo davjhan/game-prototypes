@@ -1,5 +1,5 @@
 import { Size } from '$bagger/cabinet'
-import { Dot, Item, Placeable, Placement, Zag } from '$bagger/items'
+import { Dot, Item, Line, Placeable, Placement, Zag } from '$bagger/items'
 
 export interface DragEvent extends Placeable {
 	item: Item
@@ -9,12 +9,13 @@ export interface DragEvent extends Placeable {
 }
 
 export class GameDataModel {
-	bag: Item[] = []
-	shop: Item[] = [new Dot(0, 0),new Dot(1, 0),new Dot(2, 0),new Dot(3, 0), new Zag(4,0), new Zag(6,0)]
+	bag: Item[] = [new Line(2,0),new Line(3,0), new Dot(1,0), new Dot(1,1), new Dot(5,5), new Line(4,4), new Zag(5,2), new Zag(2, 4),new Zag(5, 0)]
+	shop = []
+	// shop: Item[] = [new Dot(0, 0),new Dot(1, 0),new Dot(2, 0),new Dot(3, 0), new Zag(4,0), new Zag(6,0)]
 }
 
 export class GameViewModel implements ViewModel {
-	bagSize: Size = new Size(340, 8,5)
+	bagSize: Size = new Size(340, 7,8)
 	shopSize: Size = new Size(340, 8, 4)
 }
 
