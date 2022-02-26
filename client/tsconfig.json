@@ -25,6 +25,7 @@
     "baseUrl": ".",
     "allowJs": true,
     "checkJs": true,
+    "outDir": "dist",
     "types": [
       "@neodrag/svelte/globals"
     ],

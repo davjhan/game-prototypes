@@ -6,27 +6,27 @@
 import { StartStopNotifier, Unsubscriber } from 'svelte/store'
 
 export type EventBus = {
-	dispatch<T,R>(channel:string, e?:T ):R
-	subscribe<T, R>(channel:String, subscriber: Listener<T, R>): Unsubscriber
+	dispatch<T, R>(channel: string, e?: T): R
+	subscribe<T, R>(channel: String, subscriber: Listener<T, R>): Unsubscriber
 }
-export type Listener<T, R=void> = (value: T) => R;
+export type Listener<T, R = void> = (value: T) => R;
 
 export function eventBus(): EventBus {
-	const channels: Map<string,Set<Listener<any, any>>> = new Map()
+	const channels: Map<string, Set<Listener<any, any>>> = new Map()
 
-	function dispatch<T,R>(channel:string, e?: T ): R {
+	function dispatch<T, R>(channel: string, e?: T): R {
 
 		const subscribers = channels.get(channel)
-		if(!subscribers) return
-		for(let it of subscribers){
+		if (!subscribers) return
+		for (let it of subscribers) {
 			const result = it(e)
 			if (result) return result
 		}
 		return
 	}
 
-	function subscribe<T, R>(channel:string, subscriber: Listener<T, R>): Unsubscriber {
-		if(!channels.has(channel)) channels.set(channel, new Set())
+	function subscribe<T, R>(channel: string, subscriber: Listener<T, R>): Unsubscriber {
+		if (!channels.has(channel)) channels.set(channel, new Set())
 		const subscribers = channels.get(channel)
 		subscribers.add(subscriber)
 		return () => {

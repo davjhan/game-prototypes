@@ -6,5 +6,5 @@ export function lockscroll(node) {
 		destroy() {
 			enableBodyScroll(node)
 		}
-	};
+	}
 }

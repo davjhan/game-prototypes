@@ -6,7 +6,7 @@
 	import Shop from '$bagger/views/Shop.svelte'
 	import { setContext } from 'svelte'
 	import { writable } from 'svelte/store'
-	import { lockscroll } from '../utils/lockscroll'
+	import { lockscroll } from '../svelteActions/lockscroll'
 
 	let game = new Game()
 
@@ -15,15 +15,11 @@
 	setContext('events', eventBus())
 </script>
 <main class='flex  flex-col gap-2 py-2 ' use:lockscroll>
-<!--    <div class='my-1 self-center'>-->
-<!--        <span class='label'>Game</span>-->
-<!--    </div>-->
-    <div class='gap-2 '>
-        <div class='card border-b-3 flex-row'>
-            <Shop />
-            <div class='flex-grow'></div>
-            <span class='label'>Points: 0</span>
-        </div>
+    <!--    <div class='my-1 self-center'>-->
+    <!--        <span class='label'>Game</span>-->
+    <!--    </div>-->
+    <div class='gap-2 self-center'>
+        <Shop />
 
         <Bag />
     </div>

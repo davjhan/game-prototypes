@@ -3,8 +3,8 @@ module.exports = {
     content: ['./src/**/*.{svelte,js,ts,jsx,tsx,html}',],
     theme: {
         ...theme,
-        extend:{
-            borderWidth:{
+        extend: {
+            borderWidth: {
                 3: '3px'
             },
             animation: {

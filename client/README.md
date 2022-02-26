@@ -7,6 +7,7 @@ This template uses
 - Sveltekit
 - TailwindCSS
 - And has a dependency on [broth-css](https://github.com/davjhan/broth-css)
+
 # Setup Checklist
 
 1. Update the project name in `package.json`
@@ -17,11 +18,13 @@ This template uses
 # Running
 
 ### Dev server
+
 ```bash
 npm run dev
 ```
 
 ### Deploy
+
 ```bash
 npm run deploy
 ```

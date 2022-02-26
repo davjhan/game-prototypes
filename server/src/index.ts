@@ -12,7 +12,7 @@ const game = newClimberGame()
 app.ws.use((ctx) => {
 	const route = new UrlPattern('/game/:roomId')
 	const routeMatch = route.match(ctx.url)
-	if(routeMatch)	game.connect(ctx, routeMatch)
+	if (routeMatch) game.connect(ctx, routeMatch)
 	else ctx.websocket.close(1000)
 })
 

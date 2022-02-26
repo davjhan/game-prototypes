@@ -1,19 +1,22 @@
 import WebSocket from 'ws'
 
-export type MessageHandler = (any, WebSocket)=>void
-export class MessageRouter{
-	listeners: Record<string,MessageHandler[]>
+export type MessageHandler = (any, WebSocket) => void
+
+export class MessageRouter {
+	listeners: Record<string, MessageHandler[]>
+
 	constructor() {
 		this.listeners = {}
 	}
 
-	on(type:string, handler:MessageHandler){
-		if(!this.listeners[type]) this.listeners[type] = []
+	on(type: string, handler: MessageHandler) {
+		if (!this.listeners[type]) this.listeners[type] = []
 		this.listeners[type].push(handler)
 	}
-	handle(message:any, ws:WebSocket){
-		if(!this.listeners[message.type]) return
-		this.listeners[message.type].forEach(handler =>{
+
+	handle(message: any, ws: WebSocket) {
+		if (!this.listeners[message.type]) return
+		this.listeners[message.type].forEach(handler => {
 			handler(message, ws)
 		})
 	}
@@ -24,11 +27,11 @@ export type AuthMessage = {
 	name: string
 }
 
-export function parseJson(data:WebSocket.Data):any{
-	if(typeof data === 'string'){
-		try{
+export function parseJson(data: WebSocket.Data): any {
+	if (typeof data === 'string') {
+		try {
 			return JSON.parse(data)
-		}catch (e){
+		} catch (e) {
 			return undefined
 		}
 	}

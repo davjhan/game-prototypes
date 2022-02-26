@@ -30,7 +30,7 @@ const config = {
                 watch: {
                     followSymlinks: true
                 },
-                fs:{
+                fs: {
                     allow: ['.yalc']
                 }
             }
