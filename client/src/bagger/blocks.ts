@@ -1,16 +1,17 @@
-import { Drawable } from '$bagger/drawable'
+import { LayoutGrid } from '$bagger/grids'
 import { nanoid } from 'nanoid'
 
 export class BlockType {
 	readonly type: string
-	layout: number[][]
+	layout: any[][]
+	color:string
 }
 
-export class Block implements Drawable {
+export class Block {
 	readonly id: string
 
 	constructor(
-		public block: BlockType,
+		public type: BlockType,
 		public col: number = 0,
 		public row: number = 0,
 	) {
@@ -18,24 +19,34 @@ export class Block implements Drawable {
 	}
 
 	public get layout() {
-		return this.block.layout
+		return this.type.layout
 	}
 
 	public copy() {
-		return new Block(this.block, this.col, this.row)
+		return new Block(this.type, this.col, this.row)
+	}
+
+	static combine(blocks:Block[]):Block{
+		const layoutMerge =  LayoutGrid.mergeLayouts(blocks)
+		const blockType:BlockType = {
+			layout: layoutMerge.layout,
+			type : nanoid(),
+			color : blocks[0].type.color
+		}
+		return new Block(blockType, layoutMerge.col, layoutMerge.row)
 	}
 }
 
 export class Dot extends BlockType {
 	readonly type = 'dot'
 	readonly layout = [[1]]
-	readonly color = '#60a5fa'
+	readonly color = '#93c5fd'
 }
 
 export class Line extends BlockType {
 	readonly type = 'line'
 	readonly layout = [[1], [1]]
-	readonly color = '#f9a8d4'
+	readonly color = '#bef264'
 }
 
 export class Zag extends BlockType {
@@ -45,28 +56,37 @@ export class Zag extends BlockType {
 		[1, 1],
 		[0, 1]
 	]
-	readonly color = '#bef264'
+	readonly color = '#fca5a5'
+}
+export class Tee extends BlockType {
+	readonly type = 'tee'
+	readonly layout = [
+		[0, 1],
+		[1, 1],
+		[0, 1]
+	]
+	readonly color = '#c4b5fd'
 }
 
-export class PlacementDrawable implements Drawable {
-	target: Block
+export class PlaceAction {
+	block: Block
 	row: number
 	col: number
-	layout: number[][]
+	layout: any[][]
 	from: string
 	to: string
 
-	constructor({ item, row, col, from, to }: {
-		item: Block
+	constructor({ block, row, col, from, to }: {
+		block: Block
 		row: number
 		col: number
 		from: string
 		to: string
 	}) {
-		this.target = item
+		this.block = block
 		this.row = row
 		this.col = col
-		this.layout = item.layout
+		this.layout = block.layout
 		this.from = from
 		this.to = to
 	}

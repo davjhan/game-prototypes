@@ -21,16 +21,22 @@ export function render(item: BlockType, cellSize: number, className: string = ''
 	`
 }
 
+function getStartingPoint(blockType:BlockType){
+	for (const [i, cell] of blockType.layout[0].entries()){
+		if (cell) return new Point(i, 0)
+	}
+}
 /**
  *  Starts, and walks clockwise along edge to build a svg path command to draw the shape.
  *  */
 function makeItemShape(
-	item: BlockType,
+	blockType: BlockType,
 	radius: number = 0.3,
-) {
+):string[] {
 	const path: string[] = []
 	let dir = 'right'
-	const start = new Point(0, 0)
+	const start = getStartingPoint(blockType)
+	if (!start) return []
 	const insetPoint = start.copy().move(dir, radius)
 
 	path.push(`M ${ insetPoint.x } ${ insetPoint.y }`)
@@ -41,8 +47,8 @@ function makeItemShape(
 		cur.move(dir)
 		const borderCells = cur.borderCells(dir)
 
-		const filledInside = get(item.layout, borderCells.inside)
-		const filledOutside = get(item.layout, borderCells.outside)
+		const filledInside = get(blockType.layout, borderCells.inside)
+		const filledOutside = get(blockType.layout, borderCells.outside)
 
 		if (filledInside && filledOutside) {
 			/* At a wall. Turn left */

@@ -11,11 +11,11 @@
 		$game = $game
 	}
 </script>
-<div class='card outlined p-2 border-ink border-b-3 bg-shade self-center'>
+<div class='card outlined p-2 border-ink  bg-shade self-center'>
     <div class='card-header -m-2 mb-2  flex-row'>
         <!--        <span class=' label'>David</span>-->
         <div class='flex-grow'></div>
-        <span class='label'>Points: 0</span>
+        <span class='label'>Points: {$game.data.points}</span>
     </div>
 
     <DroppableGrid data={{drawables:$game.data.bag, id:'bag'}} onTransact={onTransact}

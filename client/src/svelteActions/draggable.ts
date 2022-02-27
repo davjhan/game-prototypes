@@ -35,7 +35,6 @@ export function drag(node: HTMLElement,) {
 
 	function dragging(e: TouchEvent | MouseEvent) {
 		/* ignore multitouch */
-		console.log(`DRAGGING`,)
 		if (e.type === 'touchstart' && (e as TouchEvent).touches.length > 1) return
 		const { clientX, clientY } = isTouchEvent(e) ? e.touches[0] : e
 

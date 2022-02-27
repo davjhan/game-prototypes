@@ -46,7 +46,7 @@
 </script>
 
 <div
-        class='cursor-pointer'
+        class='cursor-pointer pointer-events-none'
         on:drag-end={itemDragEnd}
         on:drag-start={itemDragStart}
         on:dragging={itemDragging}
