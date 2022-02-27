@@ -1,6 +1,5 @@
 import { Block, Dot, Line, PlaceAction, Zag } from '$bagger/blocks'
-import { Grid, GridSize, GridValue, LayoutGrid } from '$bagger/grids'
-import layoutItems = LayoutGrid.layoutItems
+import { Grid, GridSize, GridValue, Layouts } from '$bagger/grids'
 
 export interface DroppablePayloadEvent<T> {
 	payload: T
@@ -16,7 +15,7 @@ export class GameDataModel {
 		new Block(new Dot(), 4, 0),
 		new Block(new Dot(), 4, 3),
 	]
-	points:number = 0
+	points: number = 0
 	shop = []
 	// shop: Item[] = [new Dot(0, 0),new Dot(1, 0),new Dot(2, 0),new Dot(3, 0), new Zag(4,0), new Zag(6,0)]
 }
@@ -40,31 +39,30 @@ export class Game implements Context {
 
 		e.block.row = e.row
 		e.block.col = e.col
-		this.grid = layoutItems(this.data.bag, this.view.bagSize.cols, this.view.bagSize.rows)
+		this.grid = Layouts.toGrid(this.data.bag, this.view.bagSize.cols, this.view.bagSize.rows)
 
 		this.combineItems(e.block)
 
 	}
 
-	combineItems(target:Block) {
+	combineItems(target: Block) {
 		const toCombine = this.shouldCombineItems(target)
 		if (toCombine) {
 			this.data.bag = this.data.bag.filter(it => !toCombine.includes(it))
 			const combinedItem = Block.combine(toCombine)
 			this.data.bag.push(combinedItem)
-			this.data.points ++
+			this.data.points++
 		}
 
 	}
 
-	private shouldCombineItems(target:Block): Block[] | undefined {
+	private shouldCombineItems(target: Block): Block[] | undefined {
 		const results = new Set<Block>()
 		const neighbors = new Set<GridValue<Block>>(
-			target.layout
-				.flatMap((layoutRow, r) => layoutRow.flatMap(
-						(item, c) => item ? this.grid.neighbours(c+target.col, r + target.row) : []
-					)
-				)
+			Layouts.flatMapCells(
+				target.layout,
+				(item, c, r) => item ? this.grid.neighbours(c + target.col, r + target.row) : []
+			)
 		)
 		for (let neighbor of neighbors) {
 			if (target === neighbor.group) continue

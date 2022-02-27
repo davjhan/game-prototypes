@@ -27,7 +27,8 @@
     "checkJs": true,
     "outDir": "dist",
     "types": [
-      "@neodrag/svelte/globals"
+      "@neodrag/svelte/globals",
+      "@types/jest"
     ],
     "paths": {
       "$bagger/*": [
@@ -42,6 +43,9 @@
     "src/**/*.d.ts",
     "src/**/*.js",
     "src/**/*.ts",
-    "src/**/*.svelte"
+    "src/**/*.test.ts",
+    "src/**/*.svelte",
+    "test/**/*.ts",
+    "test/**/*.d.ts"
   ]
 }

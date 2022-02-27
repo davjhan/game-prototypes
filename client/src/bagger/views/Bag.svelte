@@ -11,7 +11,7 @@
 		$game = $game
 	}
 </script>
-<div class='card outlined p-2 border-ink  bg-shade self-center'>
+<div class='card outlined p-2 border-ink  bg-shade self-center select-none'>
     <div class='card-header -m-2 mb-2  flex-row'>
         <!--        <span class=' label'>David</span>-->
         <div class='flex-grow'></div>

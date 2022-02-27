@@ -12,7 +12,7 @@ export function render(item: BlockType, cellSize: number, className: string = ''
 		class='pointer-events-none ${ className } '
 	 	stroke='black' 
 	 	stroke-width='2'
-	 	fill=${ fill }
+	 	fill='${ fill }'
 	 	overflow='visible'
 	 	viewBox='0 0 ${ item.layout[0].length }  ${ item.layout.length }'
 	  >
@@ -21,18 +21,19 @@ export function render(item: BlockType, cellSize: number, className: string = ''
 	`
 }
 
-function getStartingPoint(blockType:BlockType){
-	for (const [i, cell] of blockType.layout[0].entries()){
+function getStartingPoint(blockType: BlockType) {
+	for (const [i, cell] of blockType.layout[0].entries()) {
 		if (cell) return new Point(i, 0)
 	}
 }
+
 /**
  *  Starts, and walks clockwise along edge to build a svg path command to draw the shape.
  *  */
 function makeItemShape(
 	blockType: BlockType,
 	radius: number = 0.3,
-):string[] {
+): string[] {
 	const path: string[] = []
 	let dir = 'right'
 	const start = getStartingPoint(blockType)

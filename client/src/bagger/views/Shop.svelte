@@ -24,7 +24,7 @@
                 <div class='p-1 area bg-shade aspect-square justify-center items-center w-16'>
                     {@html render(product, 24, '', product.color)}
                 </div>
-                <div slot='handle' >
+                <div slot='handle'>
                     {@html render(product, $game.view.bagSize.cell, 'drop-shadow-md rotate-3', product.color)}
                 </div>
             </DraggableBlock>

@@ -1,13 +1,13 @@
-import { LayoutGrid } from '$bagger/grids'
+import { Layouts } from '$bagger/grids'
 import { nanoid } from 'nanoid'
 
 export class BlockType {
 	readonly type: string
-	layout: any[][]
-	color:string
+	layout: number[][]
+	color: string
 }
 
-export class Block {
+export class Block implements Layouts.GridItem<number> {
 	readonly id: string
 
 	constructor(
@@ -22,16 +22,12 @@ export class Block {
 		return this.type.layout
 	}
 
-	public copy() {
-		return new Block(this.type, this.col, this.row)
-	}
-
-	static combine(blocks:Block[]):Block{
-		const layoutMerge =  LayoutGrid.mergeLayouts(blocks)
-		const blockType:BlockType = {
+	static combine(blocks: Block[]): Block {
+		const layoutMerge = Layouts.combine(blocks)
+		const blockType: BlockType = {
 			layout: layoutMerge.layout,
-			type : nanoid(),
-			color : blocks[0].type.color
+			type: nanoid(),
+			color: blocks[0].type.color
 		}
 		return new Block(blockType, layoutMerge.col, layoutMerge.row)
 	}
@@ -58,6 +54,7 @@ export class Zag extends BlockType {
 	]
 	readonly color = '#fca5a5'
 }
+
 export class Tee extends BlockType {
 	readonly type = 'tee'
 	readonly layout = [
