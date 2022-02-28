@@ -14,7 +14,7 @@
 	let dragging
 	let x, y
 	let root, rootBounds, handleOffsetX, handleOffsetY
-
+    let payload
 	function computePosition(e: DragEvent) {
 		const offset = e.detail.type.startsWith('touch') ? 32 : 0
 
@@ -39,6 +39,7 @@
 
 		[x, y] = computePosition(e)
 		dragging = true
+        payload = getPayload()
 	}
 
 	function itemDragging(e: DragEvent) {
@@ -46,13 +47,14 @@
 		events.dispatch<DroppablePayloadEvent<Block>>('onDrag', {
 			x,
 			y,
-			payload: getPayload(),
+			payload,
 			from: parent
 		})
 	}
 
 	function itemDragEnd() {
 		dragging = undefined
+        payload = undefined
 		x = undefined
 		y = undefined
 		events.dispatch('onDrop')

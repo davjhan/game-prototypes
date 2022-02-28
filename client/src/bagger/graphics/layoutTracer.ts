@@ -1,25 +1,5 @@
 import { BlockType } from '$bagger/blocks'
 
-const cornerRadius = 4
-
-export function render(item: BlockType, cellSize: number, className: string = '', fill: string = '#fff') {
-	const points = makeItemShape(item, cornerRadius / cellSize)
-	// console.log(`%c Points: ${ JSON.stringify(points) }`, 'color:yellow')
-
-	const path = points.join(' ')
-	return `
-	<svg width='${ item.layout[0].length * cellSize }' height= '${ item.layout.length * cellSize }'
-		class='pointer-events-none ${ className } '
-	 	stroke='black' 
-	 	stroke-width='2'
-	 	fill='${ fill }'
-	 	overflow='visible'
-	 	viewBox='0 0 ${ item.layout[0].length }  ${ item.layout.length }'
-	  >
-	<path	class='pointer-events-auto'  d='${ path }' vector-effect='non-scaling-stroke'></path>
-	</svg>
-	`
-}
 
 function getStartingPoint(blockType: BlockType) {
 	for (const [i, cell] of blockType.layout[0].entries()) {
@@ -30,14 +10,14 @@ function getStartingPoint(blockType: BlockType) {
 /**
  *  Starts, and walks clockwise along edge to build a svg path command to draw the shape.
  *  */
-function makeItemShape(
+export function traceLayout(
 	blockType: BlockType,
-	radius: number = 0.3,
-): string[] {
+	radius: number = 0,
+): string {
 	const path: string[] = []
 	let dir = 'right'
 	const start = getStartingPoint(blockType)
-	if (!start) return []
+	if (!start) return ''
 	const insetPoint = start.copy().move(dir, radius)
 
 	path.push(`M ${ insetPoint.x } ${ insetPoint.y }`)
@@ -68,7 +48,7 @@ function makeItemShape(
 		}
 	} while (cur.x !== start.x || cur.y !== start.y)
 
-	return path
+	return path.join(' ')
 }
 
 const directions = ['up', 'right', 'down', 'left']

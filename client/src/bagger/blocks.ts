@@ -32,7 +32,12 @@ export class Block implements Layouts.GridItem<number> {
 		return new Block(blockType, layoutMerge.col, layoutMerge.row)
 	}
 }
-
+export const colors = [
+	'#93c5fd',
+	'#bef264',
+	'#fca5a5',
+	'#c4b5fd',
+]
 export class Dot extends BlockType {
 	readonly type = 'dot'
 	readonly layout = [[1]]
@@ -60,7 +65,6 @@ export class Tee extends BlockType {
 	readonly layout = [
 		[0, 1],
 		[1, 1],
-		[0, 1]
 	]
 	readonly color = '#c4b5fd'
 }

@@ -1,6 +1,6 @@
 <script lang='ts'>
 	import { BlockType } from '$bagger/blocks'
-	import { render } from '$bagger/itemRenderer'
+	import { render } from '$bagger/graphics/svg'
 
 	export let block: BlockType, cellSize: number
 	let clazz = 'fill-white'

@@ -13,7 +13,7 @@
 </script>
 <div class='card outlined p-2 border-ink  bg-shade self-center select-none'>
     <div class='card-header -m-2 mb-2  flex-row'>
-        <!--        <span class=' label'>David</span>-->
+                <a class=' label underline' on:click={()=>$game.data.bag = []}>Reset</a>
         <div class='flex-grow'></div>
         <span class='label'>Points: {$game.data.points}</span>
     </div>
