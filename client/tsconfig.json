@@ -3,34 +3,36 @@
     "moduleResolution": "node",
     "module": "es2020",
     "lib": [
-      "es2020"
+      "es2020",
+      "dom"
     ],
     "target": "es2019",
     /**
         svelte-preprocess cannot figure out whether you have a value or a type, so tell TypeScript
         to enforce using \`import type\` instead of \`import\` for Types.
         */
-    "importsNotUsedAsValues": "error",
+    "importsNotUsedAsValues": "remove",
     "isolatedModules": true,
     "resolveJsonModule": true,
     /**
         To have warnings/errors of the Svelte compiler at the correct position,
         enable source maps by default.
         */
-    "sourceMap": true,
+    "sourceMap": false,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "baseUrl": "..",
+    "baseUrl": ".",
     "allowJs": true,
     "checkJs": true,
-    "types": ["@neodrag/svelte/globals"],
+    "outDir": "dist",
+    "types": [
+      "@neodrag/svelte/globals",
+      "@types/jest"
+    ],
     "paths": {
-      "$lib/*": [
-        "src/lib/*"
-      ],
-      "$views/*": [
-        "src/lib/views/*"
+      "$bagger/*": [
+        "src/bagger/*"
       ],
       "$static/*": [
         "static"
@@ -38,9 +40,12 @@
     }
   },
   "include": [
-    "client/src/**/*.d.ts",
-    "client/src/**/*.js",
-    "client/src/**/*.ts",
-    "client/src/**/*.svelte"
+    "src/**/*.d.ts",
+    "src/**/*.js",
+    "src/**/*.ts",
+    "src/**/*.test.ts",
+    "src/**/*.svelte",
+    "test/**/*.ts",
+    "test/**/*.d.ts"
   ]
 }

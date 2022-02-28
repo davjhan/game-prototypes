@@ -1,26 +1,33 @@
-<script>
-    import { onDestroy, onMount } from 'svelte'
-    import Sprite from '../gameRoom/Sprite.svelte'
-    const horTiles = 5
-    const vertTiles = 5
+<script lang='ts'>
+	import { goto } from '$app/navigation'
+	import { eventBus } from '$bagger/eventbus'
+	import { stripes } from '$bagger/graphics/svg'
+	import { Game } from '$bagger/main'
+	import Bag from '$bagger/views/Bag.svelte'
+	import Shop from '$bagger/views/Shop.svelte'
+	import { setContext } from 'svelte'
+	import { writable } from 'svelte/store'
+	import { lockscroll } from '../svelteActions/lockscroll'
 
-    let orange
+	let game = new Game()
 
-    onMount(()=>{
+	setContext('context', writable(game))
 
-    })
-    const updateLoopId = setInterval(update,100)
-    onDestroy(()=>{
-        clearInterval(updateLoopId)
-    })
-    function update(e){
-        orange.move(1,1)
-    }
+	setContext('events', eventBus())
 </script>
-<main class='p-4 flex-grow'>
-    <div class='card outlined relative bg-shade flex-grow' style='height: 400px'>
 
-        <Sprite>🐓</Sprite>
-        <Sprite bind:this={orange}>🍊</Sprite>
+
+<main class='flex  flex-col gap-2 py-2 ' use:lockscroll>
+    <!--    <div class='my-1 self-center'>-->
+    <!--        <span class='label'>Game</span>-->
+    <!--    </div>-->
+
+    <div class='gap-2 self-center'>
+        <Shop />
+
+        <Bag />
+    </div>
+    <div class='mt-8 '>
+        <button on:click={()=>goto('/')}>Exit</button>
     </div>
 </main>
