@@ -5,7 +5,7 @@
 	import { DroppablePayloadEvent } from '$bagger/main'
 	import DraggableBlock from '$bagger/views/DraggableBlock.svelte'
 	import { getContext, onDestroy } from 'svelte'
-	import { position } from '../../svelteActions/position'
+	import { position } from '../utils/actions/position'
 	import { Block, PlaceAction } from '../blocks'
 
 	export let onTransact, data: { drawables: Block[], id: string }, size: GridSize

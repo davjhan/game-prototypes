@@ -1,7 +1,7 @@
 import { Context } from 'koa'
 import { nanoid } from 'nanoid'
 import WebSocket, { CloseEvent, ErrorEvent } from 'ws'
-import { MessageRouter, parseJson } from '../../common/message'
+import { MessageRouter, parseJson } from '../../shared/message'
 import { getRoom, joinRoom, leaveRoom } from './rooms'
 
 export class GameServer {

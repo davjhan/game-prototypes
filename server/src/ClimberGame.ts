@@ -1,5 +1,5 @@
 import WebSocket from 'ws'
-import { AuthMessage } from '../../common/message'
+import { AuthMessage } from '../../shared/message'
 import { AddressBook, GameServer } from './GameServer'
 
 export function newClimberGame() {

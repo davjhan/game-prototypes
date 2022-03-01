@@ -5,8 +5,8 @@
 	import { getContext } from 'svelte'
 	import Portal from 'svelte-portal/src/Portal.svelte'
 	import type { Writable } from 'svelte/types/runtime/store'
-	import { drag, DragEvent } from '../../svelteActions/draggable'
-	import { position } from '../../svelteActions/position'
+	import { drag, DragEvent } from '../utils/actions/draggable'
+	import { position } from '../utils/actions/position'
 
 	export let block: BlockType, parent, getPayload: () => Block, handleOrigin = 'center'
 	const events = getContext<EventBus>('events')

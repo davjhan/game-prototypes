@@ -7,7 +7,7 @@
 	import Shop from '$bagger/views/Shop.svelte'
 	import { setContext } from 'svelte'
 	import { writable } from 'svelte/store'
-	import { lockscroll } from '../svelteActions/lockscroll'
+	import { lockscroll } from '../bagger/utils/actions/lockscroll'
 
 	let game = new Game()
 

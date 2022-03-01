@@ -20,7 +20,7 @@
   },
   "include": [
     "src",
-    "../common"
+    "../shared"
   ],
   "exclude": [
     "node_modules",

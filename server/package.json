@@ -4,7 +4,7 @@
   "description": "Cloudflare worker TypeScript template",
   "main": "dist/index.js",
   "files": [
-    "../common"
+    "../shared"
   ],
   "scripts": {
     "build": "tsup src --format esm --legacy-output",
