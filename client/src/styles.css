@@ -1,0 +1,13 @@
+svg {
+    overflow: visible;
+}
+circle {
+    vector-effect: non-scaling-stroke;
+}
+path {
+    vector-effect: non-scaling-stroke;
+}
+
+html,body{
+    touch-action: none;
+}

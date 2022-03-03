@@ -7,7 +7,7 @@
 	import Shop from '$bagger/views/Shop.svelte'
 	import { setContext } from 'svelte'
 	import { writable } from 'svelte/store'
-	import { lockscroll } from '../bagger/utils/actions/lockscroll'
+	import { lockscroll } from '../common/lockscroll'
 
 	let game = new Game()
 
@@ -27,7 +27,7 @@
 
         <Bag />
     </div>
-    <div class='mt-8 '>
+    <div class='mt-4 '>
         <button on:click={()=>goto('/')}>Exit</button>
     </div>
 </main>

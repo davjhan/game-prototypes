@@ -2,7 +2,7 @@
 	import { Block, BlockType, colors, Dot, Line, Tee, Zag } from '$bagger/blocks'
 	import { block } from '$bagger/graphics/svg'
 	import { Game } from '$bagger/main'
-	import { Luck } from '$bagger/utils'
+	import { Luck } from '../../common/utils'
 	import DraggableBlock from '$bagger/views/DraggableBlock.svelte'
 	import { getContext } from 'svelte'
 	import type { Writable } from 'svelte/types/runtime/store'

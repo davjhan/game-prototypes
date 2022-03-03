@@ -22,7 +22,8 @@ const config = {
             resolve: {
                 alias: {
                     $static: path.resolve('/static'),
-                    $bagger: path.resolve('/src/bagger')
+                    $bagger: path.resolve('/src/bagger'),
+                    $common: path.resolve('/src/common')
                 }
             },
             server: {
@@ -33,6 +34,9 @@ const config = {
                 fs: {
                     allow: ['.yalc']
                 }
+            },
+            ssr:{
+                noExternal: [ '@mathigon/euclid']
             }
         }
     },
