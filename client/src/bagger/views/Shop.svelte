@@ -2,19 +2,19 @@
 	import { Block, BlockType, colors, Dot, Line, Tee, Zag } from '$bagger/blocks'
 	import { block } from '$bagger/graphics/svg'
 	import { Game } from '$bagger/main'
-	import { Luck } from '../../common/utils'
 	import DraggableBlock from '$bagger/views/DraggableBlock.svelte'
 	import { getContext } from 'svelte'
 	import type { Writable } from 'svelte/types/runtime/store'
+	import { Luck } from '../../common/utils'
 
 	const game: Writable<Game> = getContext('context')
 
 	const shopItems = [new Dot(), new Line(), new Zag(), new Tee()]
 
-    function newItem(type:BlockType){
-	    console.log(`NEW ITEM`, )
-	    return new Block({...type, color:Luck.pickRandom(colors)})
-    }
+	function newItem(type: BlockType) {
+		console.log(`NEW ITEM`,)
+		return new Block({ ...type, color: Luck.pickRandom(colors) })
+	}
 </script>
 
 <div class='card'>

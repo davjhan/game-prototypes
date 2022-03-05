@@ -15,6 +15,9 @@ const config = {
         adapter: adapter({
             fallback: '404.html'
         }),
+        prerender: {
+            enabled: false
+        },
         vite: {
             optimizeDeps: {
                 exclude: ['broth-css']
@@ -35,9 +38,7 @@ const config = {
                     allow: ['.yalc']
                 }
             },
-            ssr:{
-                noExternal: [ '@mathigon/euclid']
-            }
+            ssr: false
         }
     },
 }

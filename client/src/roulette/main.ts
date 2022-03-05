@@ -1,12 +1,13 @@
-import { createNanoEvents, EventsMap } from 'nanoevents'
+import { createNanoEvents } from 'nanoevents'
 import { writable } from 'svelte/store'
 import { Writable } from 'svelte/types/runtime/store'
 import { Luck } from '../common/utils'
-import { Sticker } from './sticker'
+import { ProductSelection } from './shop'
+import { BasicSticker, Sticker } from './sticker'
 
 type RoulettePhaseType = 'spin' | 'buy'
-export class RoulettePhase {
 
+export class RoulettePhase {
 	type: RoulettePhaseType
 	round = 0
 }
@@ -19,26 +20,30 @@ export class SpinPhase extends RoulettePhase {
 }
 
 export class BuyPhase extends RoulettePhase {
-	type:RoulettePhaseType = 'buy'
+	static newRoundMoney = 10
+	type: RoulettePhaseType = 'buy'
+	rotation: number = 0
 
 	constructor(readonly round: number) {super()}
-
 }
+
 
 export class RouletteGameModel {
-	stickers = [new Sticker(40, 20, 'david'), new Sticker(80, -30, 'david'), new Sticker(20, -30, 'david')]
+	stickers = [new BasicSticker(0, 90, 'david'), new BasicSticker(30, 0, 'david'), new BasicSticker(20, -30, 'david')]
 
 	phase: SpinPhase | BuyPhase = new BuyPhase(0)
+	money: number = 10
 }
 
-interface RouletteEvents {
-	phaseChange : (next: RoulettePhase, prev: RoulettePhase) => void,
+export interface RouletteEvents {
+	phaseChange: (next: RoulettePhase, prev: RoulettePhase) => void,
+	stickerProductSelected: (sticker: Sticker) => void,
 }
 
 export class RouletteGameClient {
+	readonly events = createNanoEvents<RouletteEvents>()
 	private model = new RouletteGameModel()
 	readonly store: Writable<RouletteGameModel> = writable(this.model)
-	readonly events = createNanoEvents<RouletteEvents>()
 
 	gotoSpinPhase() {
 		/* Must be at shop phase. */
@@ -60,16 +65,25 @@ export class RouletteGameClient {
 		const phase = this.model.phase as BuyPhase
 		const newModel: RouletteGameModel = {
 			...this.model,
-			phase: new BuyPhase(phase.round + 1)
+			phase: new BuyPhase(phase.round + 1),
+			money: this.model.money + BuyPhase.newRoundMoney,
 		}
 		this.onModelChange(newModel)
+	}
+
+	buySticker(product: ProductSelection) {
+		this.onModelChange({
+			...this.model,
+			stickers: this.model.stickers.concat([Sticker.clone(product)]),
+			money: this.model.money - product.price,
+		})
 	}
 
 	private onModelChange(newModel: RouletteGameModel) {
 		const prevModel = this.model
 		if (newModel.phase.type !== prevModel.phase.type) {
 			/* Phase changed */
-			this.events.emit('phaseChange', newModel.phase, prevModel.phase )
+			this.events.emit('phaseChange', newModel.phase, prevModel.phase)
 		}
 
 		/* Update model and notify observers */

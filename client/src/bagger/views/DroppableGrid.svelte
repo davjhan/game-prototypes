@@ -1,12 +1,12 @@
 <script lang='ts'>
 	import { EventBus } from '$bagger/eventbus'
-	import { block, stripes } from '$bagger/graphics/svg'
+	import { block } from '$bagger/graphics/svg'
 	import { GridSize, Layouts } from '$bagger/grids'
 	import { DroppablePayloadEvent } from '$bagger/main'
 	import DraggableBlock from '$bagger/views/DraggableBlock.svelte'
 	import { getContext, onDestroy } from 'svelte'
-	import { position } from '../utils/actions/position'
 	import { Block, PlaceAction } from '../blocks'
+	import { position } from '../utils/actions/position'
 
 	export let onTransact, data: { drawables: Block[], id: string }, size: GridSize
 

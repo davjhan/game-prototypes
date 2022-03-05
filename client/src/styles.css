@@ -8,6 +8,18 @@ path {
     vector-effect: non-scaling-stroke;
 }
 
-html,body{
+html, body {
     touch-action: none;
+}
+p {
+    @apply text-sm font-semibold;
+}
+div {
+    @apply transition-transform;
+}
+
+button {
+    @apply active:scale-90 transition-transform hover:scale-105;
+
+    -webkit-backface-visibility: hidden;
 }

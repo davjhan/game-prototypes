@@ -26,7 +26,7 @@ export const block = (item: BlockType, cellSize: number) => `
          overflow='visible'
          viewBox='0 0 ${ item.layout[0].length }  ${ item.layout.length }'
     >
-            ${ stripes('placement-stripes-error', '#f87171')}
+            ${ stripes('placement-stripes-error', '#f87171') }
         ${ path(traceLayout(item, cornerRadius / cellSize)) }
     </svg>
 `

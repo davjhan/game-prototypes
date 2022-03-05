@@ -9,7 +9,7 @@
         width: 100%;
     }
 </style>
-<div class='container max-w-screen-sm mx-auto ' >
+<div class='container w-mobile  mx-auto '>
     <slot />
 </div>
-<hr style='top:633px' class='border-yellow-300 absolute w-full m-0'>
+<hr class='border-yellow-300 absolute w-full m-0' style='top:633px'>

@@ -33,6 +33,7 @@
     "typescript": "^4.5.5"
   },
   "dependencies": {
+    "@mathigon/fermat": "^1.0.8",
     "broth-css": "file:.yalc/broth-css",
     "svelte-portal": "^2.1.2"
   },

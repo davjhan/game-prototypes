@@ -1,0 +1,1 @@
+export const flyDefault = { y: 8, duration: 100 }

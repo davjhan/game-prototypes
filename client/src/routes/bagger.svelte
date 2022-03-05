@@ -1,7 +1,6 @@
 <script lang='ts'>
 	import { goto } from '$app/navigation'
 	import { eventBus } from '$bagger/eventbus'
-	import { stripes } from '$bagger/graphics/svg'
 	import { Game } from '$bagger/main'
 	import Bag from '$bagger/views/Bag.svelte'
 	import Shop from '$bagger/views/Shop.svelte'
