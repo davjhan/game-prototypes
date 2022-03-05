@@ -28,6 +28,7 @@
     "outDir": "dist",
     "types": [
       "@neodrag/svelte/globals",
+      "svelte",
       "@types/jest"
     ],
     "paths": {
@@ -39,6 +40,9 @@
       ],
       "$static/*": [
         "static"
+      ],
+      "$roulette/*": [
+        "src/roulette"
       ]
     }
   },

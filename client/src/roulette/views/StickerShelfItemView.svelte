@@ -12,11 +12,12 @@
      on:click
 >
     <div class='items-center' class:opacity-40={disabled}>
-        <span class='label text text-xs text-center'>{sticker.name}</span>
-        <svg class='w-8 h-8 mt-1' viewBox='-10 -10 20 20'>
+        <span class='text text-center'>{sticker.name}</span>
+        <svg class='w-8 h-8 mt-1 ' viewBox='-10 -10 20 20'>
             <StickerView sticker={sticker} />
         </svg>
     </div>
-    <div class='bg-accent badge border-2 border-ink self-stretch px-4' class:bg-red-200={disabled}>{sticker.price}$
+    <div class='bg-white badge border-2 border-ink self-stretch px-4'
+         class:bg-red-200={disabled}>{sticker.price}$
     </div>
 </div>

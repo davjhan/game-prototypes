@@ -10,8 +10,8 @@
 	import { ProductSelection } from '../shop'
 	import { BasicSticker, Sticker } from '../sticker'
 	import { flyDefault } from '../transitions'
-	import BuyWheel from './BuyWheel.svelte'
 	import StickerShelfItemView from './StickerShelfItemView.svelte'
+	import Wheel from './Wheel.svelte'
 
 	const game = getContext<Writable<RouletteGameModel>>('game')
 	const client = getContext<RouletteGameClient>('client')
@@ -102,30 +102,30 @@
          on:touchstart={e=> onMouseMove(e.touches[0], true)}
     >
         <div bind:this={wheel}>
-            <BuyWheel bind:selectedProduct={selectedProduct} rotation={phase.rotation} />
+            <Wheel bind:selectedProduct={selectedProduct} rotation={phase.rotation} />
         </div>
     </div>
 
 
     {#if selectedProduct && selectedProduct.placed}
         <div class='flex-row gap-2 self-center items-center mb-4' in:fly={flyDefault}>
-            <button class='primary small animate-bulge' on:click|preventDefault={purchase}>Buy
+            <button class='primary animate-bulge' on:click|preventDefault={purchase}>Buy
                 for {selectedProduct.price}$
             </button>
-            <button class='primary !bg-red-300 small w-20' on:click={()=> selectProduct(undefined)}>Cancel</button>
+            <button class='primary !bg-red-300 w-20' on:click={()=> selectProduct(undefined)}>Cancel</button>
         </div>
     {:else if selectedProduct && !selectedProduct.placed}
         <div class='flex-row gap-2 self-center items-center mb-4' in:fly={flyDefault}>
-            <span class='label '>Tap to place</span>
-            <button class='primary !bg-red-300 small w-20 '
+            <span class=' '>Tap to place</span>
+            <button class='primary !bg-red-300 w-20 '
                     on:click={()=> selectProduct(undefined)}>Cancel
             </button>
         </div>
 
     {/if}
     <div class='flex-col select-none gap-2' in:fly={flyDefault}>
-        <div class='card flex-grow p-2'>
-            <div class='card-header label text-xs p-1 pl-2 -m-2 mb-2 flex-row items-center'>
+        <div class='card flex-grow'>
+            <div class='card-header mb-2 flex-row items-center'>
                 Shop
                 <div class='flex-grow'></div>
                 <span class='badge bg-lime-200'>Money: {$game.money}$</span>
@@ -145,8 +145,8 @@
         </div>
         <div class='flex-row items-center gap-2  self-end'>
 
-            <span class='label text-xs mt-0.5'>Spinning in 10s</span>
-            <button class='primary small'
+            <span class=' mt-0.5'>Spinning in 10s</span>
+            <button class='primary'
                     class:animate-bulge={products.every(it => it.price > $game.money)}
                     on:click={()=>client.gotoSpinPhase()}>I'm ready.
             </button>

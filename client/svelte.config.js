@@ -26,7 +26,8 @@ const config = {
                 alias: {
                     $static: path.resolve('/static'),
                     $bagger: path.resolve('/src/bagger'),
-                    $common: path.resolve('/src/common')
+                    $common: path.resolve('/src/common'),
+                    $roulette: path.resolve('/src/roulette'),
                 }
             },
             server: {

@@ -9,8 +9,8 @@
 	export let rotation = 0, selectedProduct: ProductSelection | undefined
 
 	const game = getContext<Writable<RouletteGameModel>>('game')
+	$: phase = $game.phase
 	const client = getContext<RouletteGameClient>('client')
-
 </script>
 <svg class='overflow-visible  z-20' class:cursor-pointer={selectedProduct} height='250' stroke='black'
      stroke-width='2'
@@ -21,9 +21,8 @@
     <g class='' transform='rotate({rotation}  )'>
         <circle cx='0' cy='0' fill='white' r='100' vector-effect='non-scaling-stroke' />
         <circle cx='0' cy='0' fill='black' r='4' vector-effect='non-scaling-stroke' />
-
         <g>
-            {#each $game.stickers as sticker}
+            {#each phase.stickers as sticker}
                 <g transform='translate({sticker.x} {sticker.y})'
                    class:opacity-40={selectedProduct}
                    class=''>
@@ -46,7 +45,7 @@
                 </g>
             {/if}
         </g>
-
     </g>
 
+    <path d='M -6 -106 l 12 0 l -6 12' fill='black' stroke-linejoin='round'></path>
 </svg>

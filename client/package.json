@@ -40,7 +40,8 @@
   "jest": {
     "preset": "ts-jest",
     "moduleNameMapper": {
-      "^\\$bagger/(.*)": "<rootDir>/src/bagger/$1"
+      "^\\$bagger/(.*)": "<rootDir>/src/bagger/$1",
+      "^\\$roulette/(.*)": "<rootDir>/src/roulette/$1"
     },
     "roots": [
       "./test"

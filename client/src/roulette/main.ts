@@ -9,29 +9,45 @@ type RoulettePhaseType = 'spin' | 'buy'
 
 export class RoulettePhase {
 	type: RoulettePhaseType
-	round = 0
+	round:number = 0
+	stickers:Sticker[] = []
+	rotation:number = 0
+	constructor(props: Partial<RoulettePhase>) {
+		if(props.round  !== undefined) this.round = props.round
+		if(props.stickers !== undefined) this.stickers = props.stickers
+		if(props.rotation  !== undefined) this.rotation = props.rotation
+	}
 }
 
 export class SpinPhase extends RoulettePhase {
 	type: RoulettePhaseType = 'spin'
-	spinertia: number = Luck.randomInt(0, 360)
-
-	constructor(readonly round: number) {super()}
+	landedSticker?:Sticker
+	constructor(
+		base: Partial<RoulettePhase>,
+		readonly spinertia: number  = 3000+Luck.randomInt(0, 360)
+	) {
+		super(base)
+		// this.landedSticker =
+	}
 }
 
 export class BuyPhase extends RoulettePhase {
 	static newRoundMoney = 10
 	type: RoulettePhaseType = 'buy'
-	rotation: number = 0
-
-	constructor(readonly round: number) {super()}
+	constructor(
+		base: Partial<RoulettePhase>
+	) {
+		super(base)
+	}
 }
 
 
 export class RouletteGameModel {
-	stickers = [new BasicSticker(0, 90, 'david'), new BasicSticker(30, 0, 'david'), new BasicSticker(20, -30, 'david')]
 
-	phase: SpinPhase | BuyPhase = new BuyPhase(0)
+
+	phase: SpinPhase | BuyPhase = new SpinPhase({
+		stickers: [new BasicSticker(0, -90, 'david'), new BasicSticker(30, 0, 'david'), new BasicSticker(20, -30, 'david')]
+	}, 3240) // 9 complete spins
 	money: number = 10
 }
 
@@ -53,7 +69,7 @@ export class RouletteGameClient {
 		const phase = this.model.phase as BuyPhase
 		const newModel: RouletteGameModel = {
 			...this.model,
-			phase: new SpinPhase(phase.round)
+			phase: new SpinPhase({...phase}, 3240)
 		}
 		this.onModelChange(newModel)
 		return true
@@ -62,10 +78,14 @@ export class RouletteGameClient {
 	gotoBuyPhase() {
 		/* Must be at shop phase. */
 		if (this.model.phase.type !== 'spin') return
-		const phase = this.model.phase as BuyPhase
+		const phase = this.model.phase as SpinPhase
 		const newModel: RouletteGameModel = {
 			...this.model,
-			phase: new BuyPhase(phase.round + 1),
+			phase: new BuyPhase( {
+				...phase,
+				round: phase.round + 1,
+				rotation:(phase.rotation + phase.spinertia)%360,
+			}),
 			money: this.model.money + BuyPhase.newRoundMoney,
 		}
 		this.onModelChange(newModel)
@@ -74,7 +94,10 @@ export class RouletteGameClient {
 	buySticker(product: ProductSelection) {
 		this.onModelChange({
 			...this.model,
-			stickers: this.model.stickers.concat([Sticker.clone(product)]),
+			phase: {
+				...this.model.phase,
+				stickers: this.model.phase.stickers.concat([Sticker.clone(product)]),
+			},
 			money: this.model.money - product.price,
 		})
 	}
