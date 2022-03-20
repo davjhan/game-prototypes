@@ -92,9 +92,9 @@
 <div class='px-4 ' use:lockscroll>
 
     <div class='items-center p-8 pt-4 '
-         on:mousedown|passive={onMouseDown}
+         on:mousedown={onMouseDown}
          on:mouseleave={onMouseMove}
-         on:mousemove|passive={onMouseMove}
+         on:mousemove={onMouseMove}
 
          on:mouseup={onPlace}
          on:touchend={onPlace}

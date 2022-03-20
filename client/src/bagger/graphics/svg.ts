@@ -15,7 +15,7 @@ export const stripes = (id: string, fill: string) => `
     >
 
             <animate attributeName="x" values="0;2" dur="3s" repeatCount="indefinite" />
-        <line x1='' x2='0' y2='2' stroke='${ fill }' stroke-width='0.5' />
+        <line x1='0' x2='0' y2='2' stroke='${ fill }' stroke-width='0.5' />
     </pattern>
 `
 

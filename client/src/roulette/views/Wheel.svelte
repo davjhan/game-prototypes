@@ -6,7 +6,7 @@
 	import { ProductSelection } from '../shop'
 	import Sticker from './StickerView.svelte'
 
-	export let rotation = 0, selectedProduct: ProductSelection | undefined
+	export let rotation = 0, selectedProduct: ProductSelection | undefined = undefined
 
 	const game = getContext<Writable<RouletteGameModel>>('game')
 	$: phase = $game.phase

@@ -5,7 +5,7 @@
 	import DraggableBlock from '$bagger/views/DraggableBlock.svelte'
 	import { getContext } from 'svelte'
 	import type { Writable } from 'svelte/types/runtime/store'
-	import { Luck } from '../../common/utils'
+	import { Luck } from '$common/utils'
 
 	const game: Writable<Game> = getContext('context')
 
